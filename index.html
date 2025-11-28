@@ -3,575 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PORTAL: NOT A LIE</title>
-    
+    <title>Portal Not a Lie - Modèle Steam Store</title>
     <style>
-        /* --- RÉINITIALISATION & BASE --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
+        /* Styles de base pour l'apparence Steam */
         body {
-            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #121212;
-            color: #ffffff;
-            line-height: 1.6;
+            font-family: "Motiva Sans", "Arial", sans-serif;
+            background-color: #1b2838; /* Couleur de fond sombre de Steam */
+            color: #c7d5e0; /* Couleur de texte clair */
+            margin: 0;
+            padding: 20px;
         }
-
-        a { text-decoration: none; color: white; transition: 0.3s; }
-        ul { list-style: none; }
-
-        /* --- NAVIGATION --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 50px;
-            background: rgba(18, 18, 18, 0.95);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #333;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .logo span { color: #3e93d3; }
-
-        /* Liens sur grand écran (Desktop) */
-        .nav-links { 
-            display: flex; 
-            gap: 30px; 
-        }
-        .nav-links a { 
-            font-size: 0.9rem; 
-            opacity: 0.8; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            padding: 5px 0;
-        }
-        .nav-links a:hover { opacity: 1; color: #3e93d3; }
-
-        /* --- HAMBURGER ICON STYLING & ANIMATION --- */
-        .hamburger {
-            display: none; /* Caché sur Desktop */
-            flex-direction: column;
-            justify-content: space-around;
-            width: 30px;
-            height: 25px;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .bar {
-            width: 100%;
-            height: 3px;
-            background-color: white;
-            transition: all 0.3s ease-in-out;
-        }
-
-        /* Animation de transformation en croix */
-        .hamburger.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active .bar:nth-child(1) {
-            transform: translateY(11px) rotate(45deg);
-        }
-        .hamburger.active .bar:nth-child(3) {
-            transform: translateY(-11px) rotate(-45deg);
-        }
-        /* ------------------------------------------- */
-
-
-        /* --- HERO SECTION & BACKGROUND --- */
-        header {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 60px;
-        }
-
-        .hero-background {
-            width: 100%;
-            height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            text-align: center;
-            padding: 40px 20px;
-            
-            /* L'IMAGE UPLOADÉE EST UTILISÉE COMME FOND D'ÉCRAN */
-            background: 
-                linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0.5) 40%, rgba(18, 18, 18, 0.1) 100%), 
-                url('1000021602.png') no-repeat center center/cover;
-        }
-
-        h1 {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            color: #ccc;
-            margin-bottom: 20px;
-            max-width: 600px;
-        }
-
-        /* --- STYLE POUR LA NOTE DE PRÉREQUIS --- */
-        .prerequisite-note {
-            background-color: rgba(62, 147, 211, 0.15); 
-            color: #3e93d3; 
-            border: 1px solid #3e93d3;
-            padding: 10px 20px;
-            border-radius: 4px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            max-width: 90%;
-            text-shadow: none;
-            font-weight: bold;
-        }
-        /* --- FIN STYLE PRÉREQUIS --- */
-
-
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            padding: 0 20px;
-            flex-wrap: wrap;
-        }
-        
-        /* Assure que les conteneurs des boutons sont toujours en flex pour un alignement propre */
-        #logged-out-buttons, #logged-in-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            color: white;
-            font-weight: bold;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border: 2px solid; 
-        }
-        
-        .btn-primary { 
-            background-color: #3e93d3;
-            border-color: #3e93d3;
-        }
-        
-        .btn-primary:hover {
-            background-color: transparent;
-            color: #3e93d3;
-            cursor: pointer;
-        }
-
-        .btn-github {
-            background-color: #24292e;
-            border-color: #24292e;
-        }
-        
-        .btn-github:hover {
-            border-color: #ccc;
-            color: #ccc;
-        }
-
-        /* --- STYLE SPÉCIFIQUE STEAM CONNECT --- */
-        .btn-steam {
-            background-color: #171a21; 
-            border-color: #171a21;
-            color: #c7d5e0;
-        }
-        
-        .btn-steam:hover {
-            background-color: transparent;
-            border-color: #3e93d3;
-            color: #3e93d3;
-        }
-        /* --- FIN STYLE SPÉCIFIQUE STEAM --- */
-        
-        /* --- STYLE DÉCONNEXION --- */
-        .btn-logout {
-            background-color: #a30000; 
-            border-color: #a30000;
-        }
-
-        .btn-logout:hover {
-            background-color: transparent;
-            border-color: #a30000;
-            color: #a30000;
-        }
-        /* --- FIN STYLE DÉCONNEXION --- */
-        
-        /* --- CONTENU & GRILLE DE CARTES --- */
-        .container {
-            max-width: 1100px;
+        .steam-container {
+            max-width: 940px;
             margin: 0 auto;
-            padding: 50px 20px;
+            display: flex;
+            gap: 30px;
         }
-
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            border-left: 5px solid #3e93d3;
-            padding-left: 15px;
-            text-transform: uppercase;
+        .main-content {
+            flex: 2; /* Section principale plus large (Desktop) */
+        }
+        .sidebar {
+            flex: 1; /* Colonne latérale (Desktop) */
+            background-color: #171a21;
+            padding: 15px;
+            border-radius: 5px;
+            height: fit-content;
+        }
+        .header h1 {
+            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #8f98a0;
+            font-size: 14px;
+            margin-top: 0;
+        }
+        .hero-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            /* Utiliser une image de remplacement ou un espace réservé */
+            background-color: #2a475e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+            font-size: 20px;
+            border-radius: 3px;
+        }
+        .buy-box {
+            background-color: #00000033; /* Noir transparent */
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border-top: 1px solid #2a475e;
+        }
+        .buy-box p {
+            font-size: 18px;
             font-weight: bold;
         }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
+        .free-button {
+            display: block;
+            background-color: #5d9e11; /* Vert de bouton Steam */
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.2s;
         }
-
-        .card {
-            background: #1e1e1e;
-            border-radius: 8px;
-            border: 1px solid #333;
-            transition: 0.3s;
-            overflow: hidden;
+        .free-button:hover {
+            background-color: #6fb017;
         }
-
-        .card:hover {
-            transform: translateY(-3px);
-            border-color: #3e93d3;
+        .description h2 {
+            color: #ffffff;
+            border-bottom: 1px solid #2a475e;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+        .description p, .description ul {
+            line-height: 1.6;
+            color: #acb2b8;
+        }
+        .tag-list {
+            margin-top: 10px;
+        }
+        .tag {
+            display: inline-block;
+            background-color: #38424e;
+            color: #67c1f5;
+            padding: 3px 8px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            border-radius: 2px;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details-table th, .details-table td {
+            text-align: left;
+            padding: 5px 0;
+            border-bottom: 1px dotted #2a475e;
+            font-size: 13px;
+        }
+        .details-table th {
+            color: #4a6785;
+            width: 40%; /* Ajusté pour l'alignement */
         }
         
-        .card-image {
-            width: 100%;
-            height: 150px;
-            background-color: #000;
-            background-size: cover;
-            background-position: center;
-            display: block;
-        }
-
-        /* Fonds de cartes unis */
-        .card-image-1 { background-color: #333; }
-        .card-image-2 { background-color: #333; }
-        .card-image-3 { background-color: #333; }
-
-
-        .card-content {
-            padding: 15px;
-        }
-        .card-content h3 { margin-bottom: 5px; color: #ddd; font-size: 1rem; }
-        .card-content p { color: #aaa; font-size: 0.85rem; }
-
-        /* --- FOOTER --- */
-        footer {
-            background: #0a0a0a;
-            padding: 40px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #222;
-            font-size: 0.8rem;
-        }
-
-        footer a { color: #888; }
-        footer a:hover { color: #3e93d3; }
-
-        /* -------------------------------------------------
-            RESPONSIVE MOBILE (@media)
-            -------------------------------------------------
-        */
+        /* ---------------------------------- */
+        /* Styles pour l'interface MOBILE */
+        /* ---------------------------------- */
         @media (max-width: 768px) {
-            
-            nav { 
-                padding: 15px 20px; 
+            body {
+                padding: 10px;
             }
-            
-            .hamburger {
-                display: flex; /* Afficher l'icône hamburger */
+            .steam-container {
+                flex-direction: column; /* Les éléments s'empilent sur mobile */
+                gap: 20px;
             }
-
-            /* Menu Mobile et animation de glissement (Slide-down) */
-            .nav-links {
-                width: 100%;
-                flex-direction: column;
-                position: absolute;
-                top: 51px;
-                left: 0;
-                background: #121212; 
-                border-top: 1px solid #333;
-                padding-bottom: 10px;
-                
-                /* Propriétés clés pour l'animation */
-                opacity: 0; 
-                max-height: 0; 
-                overflow: hidden; 
-                transition: opacity 0.5s ease-out, max-height 0.5s ease-out; 
+            .header h1 {
+                font-size: 28px;
             }
-            
-            .nav-links.active {
-                display: flex; /* Rendre les liens visibles */
-                opacity: 1;
-                max-height: 400px; /* Déclencher le glissement */
+            .hero-image {
+                min-height: 200px;
             }
-
-            .nav-links a { 
-                padding: 15px 20px;
-                text-align: center;
-                border-bottom: 1px solid #222;
-                width: 100%;
+            .sidebar {
+                order: 3; 
+                padding: 10px;
             }
-            
-            /* HERO */
-            .hero-background {
-                height: 50vh;
+            .main-content {
+                order: 1; 
             }
-
-            h1 { 
-                font-size: 2.2rem; 
-                padding: 0 10px;
+            .buy-box {
+                order: 2; 
+                margin-bottom: 0; 
             }
-            
-            .prerequisite-note {
-                 /* Mobile: Centrage */
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            /* BOUTONS: Les conteneurs des boutons doivent devenir des colonnes sur mobile */
-            #logged-out-buttons, #logged-in-buttons {
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .btn-group {
-                /* Supprime le flex-wrap pour s'assurer que les boutons empilés ne débordent pas */
-                flex-direction: column; 
-                gap: 10px;
-            }
-            
-            .btn {
-                 min-width: 250px;
-                 width: 80%; /* Fixe la largeur des boutons à 80% du conteneur parent */
-                 margin: 0 auto; /* Centre les boutons */
-            }
-
-            /* CONTENU */
-            .container {
-                padding: 30px 20px;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
+            .details-table th, .details-table td {
+                padding: 5px; 
             }
         }
+
     </style>
-    </head>
+</head>
 <body>
 
-    <nav>
-        <div class="logo">PORTAL: <span>NOT A LIE</span></div>
-        <div class="hamburger" id="hamburger-icon">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </div>
-        
-        <div class="nav-links" id="nav-links">
-            <a href="#">Accueil</a>
-            <a href="#features">Fonctionnalités</a>
-            <a href="#about">À propos</a>
-            <a href="https://github.com/TON_PSEUDO/TON_REPO" target="_blank">GitHub</a>
-            
-            <a href="#" class="btn-logout" id="nav-logout-btn" style="display:none;">Déconnexion Steam</a>
-        </div>
-    </nav>
+    <div class="steam-container">
 
-    <header>
-        <div class="hero-background">
-            <h1>PORTAL: <span>NOT A LIE</span></h1>
-            <p class="subtitle">Un mod narratif unique propulsé par Strata Source & Portal 2: Community Edition.</p>
-            
-            <p class="prerequisite-note">⚠️ **Jeu Requis :** Vous devez posséder Portal 2 (ou P2CE) sur Steam pour jouer.</p>
-        </div>
-        
-        <div class="btn-group" style="margin-top: -30px; z-index: 10;">
-            
-            <div id="logged-out-buttons">
-                <a href="https://store.steampowered.com/app/620/Portal_2/" class="btn btn-primary" target="_blank">
-                    Télécharger le Mod (via Steam)
-                </a>
-                
-                <a href="https://store.steampowered.com/app/620/Portal_2/" class="btn btn-github" target="_blank">
-                    Accéder au Dépôt GitHub
-                </a>
-                
-                <a href="https://steamcommunity.com/openid/login?openid.mode=checkid_setup&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.return_to=https%3A%2F%2Fwithercore5118.github.io%2Fportalnotaliesite%2F&openid.realm=https%3A%2F%2Fwithercore5118.github.io%2Fportalnotaliesite%2F" class="btn btn-steam" id="steam-login-btn" target="_blank">
-                    Se connecter avec Steam
-                </a>
+        <div class="main-content">
+            <div class="header">
+                <h1>Portal Not a Lie</h1>
+                <p>Un mod de campagne solo basé sur l'univers de Portal 2.</p>
             </div>
 
-            <div id="logged-in-buttons" style="display:none;">
-                <a href="#" class="btn btn-primary">
-                    Télécharger le Mod (Lien Direct)
-                </a>
-                <a href="https://github.com/TON_PSEUDO/TON_REPO" class="btn btn-github" target="_blank">
-                    Accéder au Dépôt GitHub
-                </a>
-                
-                <button class="btn btn-logout" id="steam-logout-btn">
-                    Déconnexion Steam
-                </button>
+            <div class="hero-image">
+                [Image / Vidéo de la bande-annonce (Format Mobile: 16:9 ou 4:3)]
             </div>
             
-        </div>
-    </header>
+            <div class="description">
+                <h2>À propos de ce mod</h2>
+                <p>
+                    <strong>Portal Not a Lie</strong> est un mod narratif et exigeant pour Portal 2 qui vous plonge dans de nouveaux tests complexes créés par une entité mystérieuse dans les laboratoires abandonnés d'Aperture Science. 
+                </p>
+                <p>
+                    Mettant l'accent sur la difficulté des puzzles et une histoire captivante qui explore les recoins sombres du canon de Portal, ce mod offre plus de 3 heures de jeu entièrement doublées. Préparez-vous à défier la physique et la logique !
+                </p>
 
-    <div class="container" id="features">
-        <h2 class="section-title">Pourquoi jouer à ce mod ?</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <div class="card-image card-image-1"></div>
-                <div class="card-content">
-                    <h3>Gameplay Innovant</h3>
-                    <p>Utilisant les dernières fonctionnalités de Strata Source pour offrir des mécaniques de puzzle inédites.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image card-image-2"></div>
-                <div class="card-content">
-                    <h3>Nouvelle Histoire</h3>
-                    <p>Plongez dans une narration captivante qui remet en question tout ce que vous saviez sur Aperture Science.</p>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-image card-image-3"></div>
-                <div class="card-content">
-                    <h3>Visuels Améliorés</h3>
-                    <p>Des environnements retravaillés profitant des améliorations graphiques du moteur P2CE.</p>
-                </div>
+                <h2>Caractéristiques Clés</h2>
+                <ul>
+                    <li>15 nouvelles chambres de test originales.</li>
+                    <li>Nouvelle trame scénaristique avec doublage complet.</li>
+                    <li>Nouveaux éléments de puzzle et mécaniques de jeu.</li>
+                    <li>Nécessite une installation de Portal 2 (Gratuit pour les possesseurs de Portal 2).</li>
+                </ul>
+
+                <h2>Configuration Requise</h2>
+                <p>Identique à Portal 2. Assurez-vous d'avoir Portal 2 installé et de l'espace disque disponible.</p>
+
             </div>
         </div>
+
+        <div class="sidebar">
+            <div class="buy-box">
+                <p>Jouer au Mod</p>
+                <a href="[LIEN DE TÉLÉCHARGEMENT]" class="free-button">Télécharger et Jouer GRATUITEMENT</a>
+                <p style="font-size: 12px; text-align: center; margin-top: 10px;">
+                    Nécessite Portal 2 pour jouer.
+                </p>
+            </div>
+
+            <table class="details-table">
+                <tr>
+                    <th>Développeur :</th>
+                    <td>dalek89142vf</td>
+                </tr>
+                <tr>
+                    <th>Éditeur :</th>
+                    <td>Communauté Sourcemods</td>
+                </tr>
+                <tr>
+                    <th>Date de sortie :</th>
+                    <td>Indéfini (À déterminer)</td>
+                </tr>
+                <tr>
+                    <th>Évaluation :</th>
+                    <td style="color: #66c0f4;">N/A (Pas encore sorti)</td>
+                </tr>
+            </table>
+
+            <div class="tag-list">
+                <span class="tag">Puzzle</span>
+                <span class="tag">Solo</span>
+                <span class="tag">Sci-fi</span>
+                <span class="tag">FPS</span>
+                <span class="tag">Mod</span>
+                <span class="tag">Gratuit</span>
+                <span class="tag">Aventure</span>
+            </div>
+
+        </div>
+
     </div>
-
-    <div class="container" id="about" style="background-color: #181818; border-radius: 8px;">
-        <h2 class="section-title">Installation</h2>
-        <p style="color: #ccc; margin-bottom: 20px;">
-            Portal: Not a Lie nécessite <strong>Portal 2: Community Edition</strong> pour fonctionner.
-        </p>
-        <ol style="color: #aaa; padding-left: 20px; line-height: 2;">
-            <li>Téléchargez et installez <strong>Portal 2: Community Edition</strong> sur Steam.</li>
-            <li>Téléchargez la dernière version de <strong>Not a Lie</strong> depuis GitHub.</li>
-            <li>Extrayez le dossier dans votre répertoire <code>steamapps/common/Portal 2 Community Edition/</code>.</li>
-            <li>Lancez le jeu et sélectionnez le mod dans le menu.</li>
-        </ol>
-    </div>
-
-    <div class="container">
-        <h2 class="section-title">Voir les sources</h2>
-        <p style="color: #aaa; text-align: center;">Accédez au code source et contribuez au projet sur GitHub (après avoir obtenu Portal 2).</p>
-        <div style="text-align: center; margin-top: 20px;">
-            <a href="https://store.steampowered.com/app/620/Portal_2/" class="btn btn-github" target="_blank">Accéder au dépôt</a>
-        </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2025 Portal: Not a Lie Team.</p>
-        <p>Ceci est un fan-mod. Non affilié à Valve Software.</p>
-        <p>Chaîne YouTube : <a href="https://www.youtube.com/@portal_not_a_lie" target="_blank">@portal_not_a_lie</a></p>
-        <p>Propulsé par <a href="https://p2ce.org">Strata Source</a>.</p>
-    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const hamburger = document.getElementById('hamburger-icon');
-            const navLinks = document.getElementById('nav-links');
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const sidebarBuyBox = document.querySelector('.sidebar .buy-box');
             
-            // Éléments de la page
-            const loggedOutButtons = document.getElementById('logged-out-buttons');
-            const loggedInButtons = document.getElementById('logged-in-buttons');
-            const navLogoutBtn = document.getElementById('nav-logout-btn');
-            const steamLoginBtn = document.getElementById('steam-login-btn'); 
-            const steamLogoutBtn = document.getElementById('steam-logout-btn');
-
-            // --- FONCTION DE GESTION DU MENU (EXISTANTE) ---
-            hamburger.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                hamburger.classList.toggle('active');
-            });
-
-            navLinks.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', function() {
-                    if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        hamburger.classList.remove('active');
-                    }
-                });
-            });
-            
-            // --- FONCTION DE SIMULATION DE CONNEXION ---
-            function checkLoginStatus() {
-                // Simule l'état de connexion en vérifiant si une clé "isLoggedIn" existe
-                const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-
-                if (isLoggedIn) {
-                    loggedOutButtons.style.display = 'none';
-                    // Utilisez flex pour que les boutons s'alignent correctement
-                    loggedInButtons.style.display = 'flex'; 
-                    navLogoutBtn.style.display = 'block'; 
-                } else {
-                    // Utilisez flex pour que les boutons s'alignent correctement
-                    loggedOutButtons.style.display = 'flex'; 
-                    loggedInButtons.style.display = 'none';
-                    navLogoutBtn.style.display = 'none'; 
-                }
+            // Sur mobile, on déplace le buy-box pour qu'il s'affiche juste après le header.
+            if (window.innerWidth <= 768) {
+                const mainContent = document.querySelector('.main-content');
+                const header = document.querySelector('.header');
+                // Insérer la boîte d'achat après le header (le titre et le sous-titre)
+                header.parentNode.insertBefore(sidebarBuyBox, header.nextSibling);
             }
-
-            // --- FONCTION DE DÉCONNEXION ---
-            function logout() {
-                // Supprime l'état de connexion de la mémoire du navigateur
-                localStorage.removeItem('isLoggedIn');
-                
-                // Recharge la page pour mettre à jour l'interface (afficher les boutons déconnectés)
-                window.location.reload(); 
-            }
-            
-            // --- ÉVÉNEMENTS ---
-
-            // Déclencheur de l'état "connecté" après avoir cliqué sur le lien Steam
-            if (steamLoginBtn) {
-                steamLoginBtn.addEventListener('click', function() {
-                    // Nous définissons l'état de connexion, que l'utilisateur verra au retour sur le site
-                    localStorage.setItem('isLoggedIn', 'true');
-                });
-            }
-            
-            // Déclencheur de déconnexion (bouton de l'entête)
-            if (steamLogoutBtn) {
-                steamLogoutBtn.addEventListener('click', logout);
-            }
-            
-            // Déclencheur de déconnexion (bouton du menu mobile)
-            navLogoutBtn.addEventListener('click', logout);
-
-            // Initialise l'état au chargement de la page
-            checkLoginStatus();
         });
     </script>
-    </body>
+
+</body>
 </html>
