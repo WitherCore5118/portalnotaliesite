@@ -30,7 +30,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 50px;
-            background: rgba(18, 18, 18, 0.95);
+            /* Fond opaque */
+            background: rgb(18, 18, 18); 
             position: fixed;
             width: 100%;
             top: 0;
@@ -312,7 +313,8 @@
                 position: absolute;
                 top: 51px;
                 left: 0;
-                background: #121212; 
+                /* Fond opaque */
+                background: rgb(18, 18, 18); 
                 border-top: 1px solid #333;
                 padding-bottom: 10px;
                 
@@ -406,9 +408,10 @@
     <header>
         <div class="hero-background">
             <h1>PORTAL: <span>NOT A LIE</span></h1>
-            <p class="subtitle">Un mod narratif unique propulsé par Strata Source & Portal 2: Community Edition.</p>
             
-            <p class="prerequisite-note">⚠️ **Jeu Requis :** Vous devez posséder Portal 2 (ou P2CE) sur Steam pour jouer.</p>
+            <p class="subtitle">Un mod narratif unique propulsé par Strata Source & **Portal: Revolution**.</p>
+            
+            <p class="prerequisite-note">⚠️ **Jeu Requis :** Vous devez posséder Portal 2 et **Portal: Revolution** sur Steam pour jouer.</p>
         </div>
         
         <div class="btn-group" style="margin-top: -30px; z-index: 10;">
@@ -451,7 +454,7 @@
                 <div class="card-image card-image-1"></div>
                 <div class="card-content">
                     <h3>Gameplay Innovant</h3>
-                    <p>Utilisant les dernières fonctionnalités de Strata Source pour offrir des mécaniques de puzzle inédites.</p>
+                    <p>Utilisant les dernières fonctionnalités de Strata Source et du moteur de **Portal: Revolution** pour offrir des mécaniques de puzzle inédites.</p>
                 </div>
             </div>
             <div class="card">
@@ -465,7 +468,7 @@
                 <div class="card-image card-image-3"></div>
                 <div class="card-content">
                     <h3>Visuels Améliorés</h3>
-                    <p>Des environnements retravaillés profitant des améliorations graphiques du moteur P2CE.</p>
+                    <p>Des environnements retravaillés profitant des améliorations graphiques fournies par **Portal: Revolution**.</p>
                 </div>
             </div>
         </div>
@@ -474,13 +477,13 @@
     <div class="container" id="about" style="background-color: #181818; border-radius: 8px;">
         <h2 class="section-title">Installation</h2>
         <p style="color: #ccc; margin-bottom: 20px;">
-            Portal: Not a Lie nécessite <strong>Portal 2: Community Edition</strong> pour fonctionner.
+            Portal: Not a Lie nécessite **Portal: Revolution** pour fonctionner.
         </p>
         <ol style="color: #aaa; padding-left: 20px; line-height: 2;">
-            <li>Téléchargez et installez <strong>Portal 2: Community Edition</strong> sur Steam.</li>
-            <li>Téléchargez la dernière version de <strong>Not a Lie</strong> depuis GitHub.</li>
-            <li>Extrayez le dossier dans votre répertoire <code>steamapps/common/Portal 2 Community Edition/</code>.</li>
-            <li>Lancez le jeu et sélectionnez le mod dans le menu.</li>
+            <li>Téléchargez et installez **Portal: Revolution** sur Steam.</li>
+            <li>Téléchargez la dernière version de **Not a Lie** depuis GitHub.</li>
+            <li>Extrayez le dossier dans votre répertoire <code>steamapps/common/Portal 2/portalrevolution/</code> (le chemin du mod Revolution).</li>
+            <li>Lancez **Portal: Revolution** et le mod devrait apparaître dans le menu des extensions.</li>
         </ol>
     </div>
 
@@ -496,7 +499,7 @@
         <p>&copy; 2025 Portal: Not a Lie Team.</p>
         <p>Ceci est un fan-mod. Non affilié à Valve Software.</p>
         <p>Chaîne YouTube : <a href="https://www.youtube.com/@portal_not_a_lie" target="_blank">@portal_not_a_lie</a></p>
-        <p>Propulsé par <a href="https://p2ce.org">Strata Source</a>.</p>
+        <p>Propulsé par **Portal: Revolution**.</p>
     </footer>
 
     <script>
@@ -511,17 +514,22 @@
             const steamLoginBtn = document.getElementById('steam-login-btn'); 
             const steamLogoutBtn = document.getElementById('steam-logout-btn');
 
-            // --- FONCTION DE GESTION DU MENU (EXISTANTE) ---
+            // --- FONCTION DE GESTION DU MENU ---
             hamburger.addEventListener('click', function() {
                 navLinks.classList.toggle('active');
                 hamburger.classList.toggle('active');
             });
 
+            // --- FERMETURE DU MENU AU CLIC SUR UN LIEN ---
             navLinks.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', function() {
+                    // Si le menu est actif, le ferme après un court délai
                     if (navLinks.classList.contains('active')) {
-                        navLinks.classList.remove('active');
-                        hamburger.classList.remove('active');
+                        // Délai pour permettre la fin de l'animation CSS avant de retirer les classes
+                        setTimeout(() => {
+                            navLinks.classList.remove('active');
+                            hamburger.classList.remove('active');
+                        }, 50); 
                     }
                 });
             });
@@ -568,13 +576,4 @@
                 steamLogoutBtn.addEventListener('click', logout);
             }
             
-            // Déclencheur de déconnexion (bouton du menu mobile)
-            navLogoutBtn.addEventListener('click', logout);
-
-            // Initialise l'état au chargement de la page
-            checkLoginStatus();
-        });
-    </script>
-    </body>
-                    </html>
-    
+       
