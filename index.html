@@ -1112,4 +1112,53 @@
 
     <footer>
 
-        <p>&copy; 2025 Portal: Not
+        <p>&copy; 2025 Portal: Not a Lie Team.</p>
+
+        <p>Ceci est un fan-mod. Non affilié à Valve Software. Les images provienne de p2ce.org</p>
+
+        <p>Chaîne YouTube : <a href="https://www.youtube.com/@Portal_NaL" target="_blank"><i class="fab fa-youtube"></i> @portal_not_a_lie</a></p>
+
+        <p>Propulsé par p2ce.</p>
+
+    </footer>
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const hamburger = document.getElementById('hamburger-icon');
+
+            const navLinks = document.getElementById('nav-links');
+
+            
+
+            // Éléments de la page pour la simulation de connexion
+
+            const loggedOutButtons = document.getElementById('logged-out-buttons');
+
+            const loggedInButtons = document.getElementById('logged-in-buttons');
+
+            const navLogoutBtn = document.getElementById('nav-logout-btn');
+
+            const steamLoginBtn = document.getElementById('steam-login-btn'); 
+
+            const steamLogoutBtn = document.getElementById('steam-logout-btn');
+
+
+
+            // --- FONCTION DE GESTION DU MENU (SIMPLIFIÉE) ---
+
+0            if (hamburger && navLinks) {
+
+                
+
+                hamburger.addEventListener('click', function(e) {
+
+                    // Empêche le comportement par qdéfaut (comme le double tap zoom sur certains mobiles)
+
+                    e.preventDefault(); 
+
+                 
+
